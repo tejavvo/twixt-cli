@@ -20,7 +20,7 @@ Referances given can be found here:
 
 The screen and colours are refreshed and reprinted using ANSI charector codes, the size of the board depends on the `SIZE` macro defined in `include/ui.h`
 
-To run, simply run `make` and `./twixt`. It is compiled with `gcc` however to change the compiler change the CC flag in the makefile (and their repective flags), or just compile on you're own
+To run, simply run `make` and `./twixt`. It is compiled with `gcc` however to change the compiler change the CC flag in the makefile (and their repective flags), or just compile on your own
 
 On Linux: 
 

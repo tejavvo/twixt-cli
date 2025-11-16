@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-SRC = $(wildcard src/*.c)
-OBJ = $(SRC:.c=.o)
+
+SRC_DIR = src
+OBJ_DIR = obj
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 OUT = twixt
 
 all: $(OUT)
@@ -9,5 +12,9 @@ all: $(OUT)
 $(OUT): $(OBJ)
 	$(CC) $(OBJ) -o $(OUT)
 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJ) $(OUT)
+	rm -rf $(OBJ_DIR)/* $(OUT)
+

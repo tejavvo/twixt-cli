@@ -1,21 +1,61 @@
 #include "ui.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
 
-int main(void) {
+#define ALT_SCREEN_ENABLE 1
+
+char **get_tokens(char *s) {
+    if (s == NULL) return NULL;
+
+    char **tokens = malloc((strlen(s) + 1) * sizeof *tokens);
+    int k = 0;
+
+    for (int i = 0; s[i]; i++) {
+        if (s[i] == ' ') continue;
+
+        tokens[k++] = &s[i];
+        while (s[i] && s[i] != ' ')
+            i++;
+
+        if (s[i] == ' ')
+            s[i] = '\0';
+    }
+
+    tokens[k] = NULL;
+    return tokens;
+}
+
+int main() {
     int board[SIZE][SIZE] = {0};
     bool turn = true;
 
+    char buf[64];
+
+    if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_ON);
+
     while (true) {
         draw_board(board);
-        int x, y;
-        printf("Player %s, enter move (row col): ", ((turn) ? "RED" : "BLUE"));
-        if (scanf("%d %d", &x, &y) != 2) break;
-        if (x < 1 || x > SIZE || y < 1 || y > SIZE) continue;
+        memset(buf, 0, sizeof(buf));
 
-        if (board[x-1][y-1] == 0)
-            board[x-1][y-1] = 1 + turn; // since 0 represented as null + 1
+        printf("Player %s, enter move: ", turn ? "RED" : "BLUE");
 
-        turn = !turn;
+        // on ctrl+D
+        if (!fgets(buf, sizeof(buf), stdin)) {
+            printf("\n");
+            break;
+        }
+
+        char **move = get_tokens(buf);
+        for (int i = 0; move[i] != NULL; i++)
+            printf("%s\n", move[i]);
+
+        free(move);
     }
+
+    if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_OFF);
+
+    return 0;
 }
