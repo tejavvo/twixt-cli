@@ -9,7 +9,7 @@
 
 #define ALT_SCREEN_ENABLE 1
 
-int SURPRISE = 10;
+int SURPRISE = SURPRISE_COUNT;
 bool GAME_ACTIVE = true;
 
 int iswhitespace(char n) {
@@ -103,11 +103,11 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         unlink(board, turn, pos1.row, pos1.col, pos2.row, pos2.col);
     } else if (!strcmp(move[0], "help")) {
         SURPRISE--;
-        throw_error("This Message :D !\n");
         if (!SURPRISE) {
-            throw_error("Why you ask me so many time pls TvT");
-            SURPRISE += 10;
+            throw_error("Why you ask me so many time pls TvT\n");
+            SURPRISE += SURPRISE_COUNT;
         }
+        throw_error("This Message :D !\n");
         return -1;
     } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {
         GAME_ACTIVE = false;

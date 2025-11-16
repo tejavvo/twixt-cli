@@ -1,7 +1,11 @@
 #include "utility.h"
 #include "moves.h"
 
+// turn ? "RED" : "BLUE"
+
 int place(int board[SIZE][SIZE], int turn, int row, int column) {
+    if (turn) 
+
     board[row][column] = 1 + !turn;
     return 0;
 }

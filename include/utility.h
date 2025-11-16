@@ -10,8 +10,10 @@
 #define SET_DIM "\033[2m"
 
 #define SIZE 6
-#define SPACE "    "
+#define SPACE 0
 #define MAX_ERROR_MSG 1024
+
+#define SURPRISE_COUNT 2
 
 void clear_screen();
 void throw_error(const char *msg);
