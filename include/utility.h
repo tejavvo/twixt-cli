@@ -10,10 +10,13 @@
 #define SET_DIM "\033[2m"
 
 #define SIZE 6
-
 #define SPACE "    "
+#define MAX_ERROR_MSG 1024
 
 void clear_screen();
+void throw_error(const char *msg);
+void print_error();
+void reset_error();
 void print_cell(int cell);
 void print_cell(int cell);
 void draw_board(int board[SIZE][SIZE]);
