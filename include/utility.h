@@ -13,7 +13,9 @@
 #define SPACE 0 // make it look good doesnt work TvT
 #define MAX_ERROR_MSG 1024
 
-#define SURPRISE_COUNT 2
+// third times the charm
+#define SURPRISE_COUNT 3
+#define SET_RFTM 5
 
 void clear_screen();
 void throw_error(const char *msg);

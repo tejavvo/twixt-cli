@@ -10,11 +10,15 @@ Referances given can be found here:
 ```
  twixt-cli/
 ├──  include
-│   └──  ui.h      // Rendering function prototypes, macros, and constants
+│   ├──  moves.h        // Game Logic protoypes
+│   └──  utility.h      // Rendering function prototypes, macros, and constants
+├──  LICENCE.md
 ├──  makefile
 ├── 󰂺 README.md
 └── 󰣞 src
-    ├──  main.c    // handles game loop and input
+    ├──  error.c   // Display user messages (primarily errors)
+    ├──  main.c    // Handles game loop and input
+    ├──  moves.c   // Handles logic for each possible move 
     └──  ui.c      // Rendering layer: draws board, manages colors
 ```
 
@@ -33,7 +37,8 @@ gcc main.o ui.o -o twixt
 
 To clean, you can run `make clean`
 
+### Playing the game
 To play the game, enter a Row number and a Column number to select your cell, when it is your color's turn.
-To quit, simply type 'Q' in the promt and enter.
+To quit, simply type "q", "exit or "quit" in the promt and enter.
 
 This project is licensed under the [MIT License](LICENCE.md).

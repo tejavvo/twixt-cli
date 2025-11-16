@@ -2,17 +2,24 @@
 #define MOVES_H
 
 #define BUFFER_SIZE 64
+#define MAX_LINKS 1024
 
 typedef struct {
     int row;
     int col;
 } coord;
 
+typedef struct {
+    coord pos1;
+    coord pos2;
+} conn;
+
 int parse_move(int board[SIZE][SIZE], int turn, char **move);
 coord parse_coords(char *row, char *col);
-int place(int board[SIZE][SIZE], int turn, int row, int column);
-int unplace(int board[SIZE][SIZE], int turn, int row, int column);
-int link(int board[SIZE][SIZE], int turn, int row1, int column1, int row2, int column2);
-int unlink(int board[SIZE][SIZE], int turn, int row1, int column1, int row2, int column2);
+int notConnected(coord pos1, coord pos2);
+int place(int board[SIZE][SIZE], int turn, coord pos);
+int unplace(int board[SIZE][SIZE], int turn, coord pos);
+int link(coord pos1, coord pos2);
+int unlink(coord pos1, coord pos2);
 
 #endif

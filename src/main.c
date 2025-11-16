@@ -6,14 +6,12 @@
 
 #include "utility.h"
 #include "moves.h"
+#include "log.h"
 
 #define ALT_SCREEN_ENABLE 1
 
-int SURPRISE = SURPRISE_COUNT;
-bool GAME_ACTIVE = true;
-
 int iswhitespace(char n) {
-    if (n == ' ' || n == '\n') return 1;
+    if (n == ' ' || n == '\n' || n == '\t' || n == '\v' || n == '\r' || n == '\b') return 1;
     else return 0;
 }
 
@@ -37,95 +35,18 @@ char **get_tokens(char *s) {
     return tokens;
 }
 
-// Recheck SIZE
-int outofbounds(int row, int column) {
-    if (row < 0 || row >= SIZE || column < 0 || column >= SIZE) {
-        throw_error("Error: Cell input is out of bounds!\n");
-        return 1;
-    }
-
-    return 0;
-}
-
-// Due: Work Needed
-coord parse_coords(char *row, char *col) {
-    coord pos = {atoi(row) - 1, atoi(col) - 1};
-    return pos;
-}
-
-int parse_move(int board[SIZE][SIZE], int turn, char **move) {
-    if (move[0] == NULL) {
-        throw_error("Error: please input something!!\n");
-        return 1;
-    } else if (!strcmp(move[0], "place")) {
-        coord pos = parse_coords(move[1], move[2]);
-        if(outofbounds(pos.row, pos.col)) return 2;
-        if (board[pos.row][pos.col]) {
-            throw_error("Invalid Move: A cell already exists there, please input a vacant cell\n");
-            return 3;
-        }
-        place(board, turn, pos.row, pos.col);
-    } else if (!strcmp(move[0], "unplace")) {
-        coord pos = parse_coords(move[1], move[2]);
-        if(outofbounds(pos.row, pos.col)) return 2;
-        if (!board[pos.row][pos.col]) {
-            throw_error("Invalid Move: Such a cell does not exist, please input a valid cell\n");
-            return 4;
-        }
-        unplace(board, turn, pos.row, pos.col);
-    } else if (!strcmp(move[0], "link")) {
-        coord pos1 = parse_coords(move[1], move[2]);
-        coord pos2 = parse_coords(move[3], move[4]);
-        if(outofbounds(pos1.row, pos1.col)) return 2;
-        if(outofbounds(pos2.row, pos2.col)) return 2;
-        int dx = abs(pos1.row - pos2.row);
-        int dy = abs(pos1.col - pos2.col);
-        if (!((dx == 1 && dy == 2) || (dx == 2 && dy == 1))) {
-            throw_error("Invalid move: a link is allowed only when two point form a valid knight (L-shaped) displacement.\n");
-            return 5;
-        }
-        link(board, turn, pos1.row, pos1.col, pos2.row, pos2.col);
-    } else if (!strcmp(move[0], "unlink")) {
-        coord pos1 = parse_coords(move[1], move[2]);
-        coord pos2 = parse_coords(move[3], move[4]);
-        if(outofbounds(pos1.row, pos1.col)) return 2;
-        if(outofbounds(pos2.row, pos2.col)) return 2;
-        int dx = abs(pos1.row - pos2.row);
-        int dy = abs(pos1.col - pos2.col);
-        if (!((dx == 1 && dy == 2) || (dx == 2 && dy == 1))) {
-            throw_error("Invalid move: Such a link cannot exist! a link is allowed only when two point form a valid knight (L-shaped) displacement.\n");
-            return 5;
-        }
-        // if (no link exists) {
-        //     throw_error("Invalid Move: Such a link does not exist, please input a valid link\n")
-        //     return 6;
-        // }
-        unlink(board, turn, pos1.row, pos1.col, pos2.row, pos2.col);
-    } else if (!strcmp(move[0], "help")) {
-        SURPRISE--;
-        if (!SURPRISE) {
-            throw_error("Why you ask me so many time pls TvT\n");
-            SURPRISE += SURPRISE_COUNT;
-        }
-        throw_error("This Message :D !\n");
-        return -1;
-    } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {
-        GAME_ACTIVE = false;
-    } else {
-        throw_error("Invalid move: type 'help' to view all possible commands\n");
-        return -1;
-    }
-
-    return 0;
-}
-
 int main() {
-    int board[SIZE][SIZE] = {0};
+    bool GAME_ACTIVE = true;
+
     bool turn = true;
+    int RFTM = SET_RFTM;
+    int board[SIZE][SIZE] = {0};
 
     char buf[BUFFER_SIZE];
 
     if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_ON);
+
+    append_log("\n\nNew game:\n")
 
     while (GAME_ACTIVE) {
         draw_board(board);
@@ -134,6 +55,7 @@ int main() {
         memset(buf, 0, sizeof(buf));
 
         printf("Player %s, enter move: ", turn ? "RED" : "BLUE");
+        append_log("Player %s, enter move: \n", turn ? "RED" : "BLUE");
 
         // on ctrl+D
         if (!fgets(buf, sizeof(buf), stdin)) {
@@ -142,13 +64,27 @@ int main() {
         }
 
         char **move = get_tokens(buf);
-        // for (int i = 0; move[i] != NULL; i++) {
-        //     throw_error(move[i]);
-        //     throw_error("  ");
-        // } throw_error("\n");
+        for (int i = 0; move[i] != NULL; i++) {
+            append_log(move[i]);
+            append_log("  ");
+        } append_log("\n");
 
-        if (!parse_move(board, turn, move)) {
+        int c;
+        if (!(c = parse_move(board, turn, move))) {
+            if (RFTM <= 0) RFTM = SET_RFTM; 
             turn = !turn;
+        } else if (c == -9) {
+            if (RFTM <= 0) RFTM = SET_RFTM;
+        } else if (c == -10) {
+            if (RFTM <= 0) RFTM = SET_RFTM;
+            throw_error("Exiting Game\n");
+            GAME_ACTIVE = false;
+            throw_error("You should'nt be seeing this ;)\n");
+        } else {
+            RFTM--;
+            if (RFTM <= 0) {
+                throw_error("Tip: Read the 'help' docs!\n");
+            }
         }
 
         free(move);
