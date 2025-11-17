@@ -107,7 +107,12 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
             throw_error("Why you ask me so many time pls TvT\n");
             SURPRISE += SURPRISE_COUNT;
         }
-        throw_error("This Message :D !\n");
+        throw_error("Hey! Here is all possible moves\n");
+        throw_error("    p | place <number> <number|alphabet>\n");
+        throw_error("    u | unplace <number> <number|alphabet>\n");
+        throw_error("    l | link <number> <number|alphabet> <number> <number|alphabet>\n");
+        throw_error("   ul | unlink <number> <number|alphabet> <number> <number|alphabet>\n");
+        throw_error("    h | help this Message :D\n");
         return -9;
     } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {
         return -10;
