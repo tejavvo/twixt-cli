@@ -46,7 +46,7 @@ int main() {
 
     if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_ON);
 
-    append_log("\n\nNew game:\n")
+    append_log("New game:\n");
 
     while (GAME_ACTIVE) {
         draw_board(board);
@@ -55,7 +55,11 @@ int main() {
         memset(buf, 0, sizeof(buf));
 
         printf("Player %s, enter move: ", turn ? "RED" : "BLUE");
-        append_log("Player %s, enter move: \n", turn ? "RED" : "BLUE");
+        if (turn) {
+            append_log("Player RED, enter move: \n");
+        } else {
+            append_log("Player BLUE, enter move: \n");
+        }
 
         // on ctrl+D
         if (!fgets(buf, sizeof(buf), stdin)) {
@@ -91,6 +95,8 @@ int main() {
     }
 
     if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_OFF);
+
+    append_log("\n\n");
 
     return 0;
 }

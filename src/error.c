@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stddef.h>
 
+#include "log.h"
 #include "utility.h"
 
 char error_messages[MAX_ERROR_MSG] = {0};
@@ -14,6 +15,7 @@ static void append(const char *msg) {
 
 void throw_error(const char *msg) {
     append(msg);
+    append_log(msg);
 }
 
 void print_error() {
