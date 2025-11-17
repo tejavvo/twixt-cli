@@ -22,10 +22,18 @@ int outofbounds(coord pos) {
 
 // Due: Work Needed
 coord parse_coords(char *row, char *col) {
-    coord pos = {atoi(row) - 1, atoi(col) - 1};
+    int r = atoi(row) - 1;
+
+    int c;
+    if (isalpha(col[0])) {
+        c = toupper(col[0]) - 'A';
+    } else {
+        c = atoi(col) - 1;
+    }
+
+    coord pos = {r, c};
     return pos;
 }
-
 /*
     p: place
     u: unplace

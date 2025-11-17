@@ -1,0 +1,49 @@
+New game:
+Player RED, enter move: 
+place  4  
+New game:
+Player RED, enter move: 
+place  4    
+Error: Cell input is out of bounds!
+Player RED, enter move: 
+place  4    
+Error: Cell input is out of bounds!
+Player RED, enter move: 
+palce  4  D  
+Invalid move: type 'help' to view all possible commands
+Player RED, enter move: 
+place  4  D  
+Player BLUE, enter move: 
+place  4  F  
+Player RED, enter move: 
+place  4  g  
+Player BLUE, enter move: 
+place  6    
+Error: Cell input is out of bounds!
+Player BLUE, enter move: 
+q  
+Exiting Game
+You should'nt be seeing this ;)
+
+
+New game:
+Player RED, enter move: 
+place  4    
+Error: Cell input is out of bounds!
+Player RED, enter move: 
+q  
+Exiting Game
+You should'nt be seeing this ;)
+
+
+New game:
+Player RED, enter move: 
+place  4  C  
+Player BLUE, enter move: 
+place  4  4  
+Player RED, enter move: 
+q  
+Exiting Game
+You should'nt be seeing this ;)
+
+

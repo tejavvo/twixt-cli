@@ -25,8 +25,9 @@ char **get_tokens(char *s) {
         if (iswhitespace(s[i])) continue;
 
         tokens[k++] = &s[i];
-        while (s[i] != '\0' && !iswhitespace(s[i]))
+        while (s[i] != '\0' && !iswhitespace(s[i])) {
             i++;
+        }
 
         s[i] = '\0';
     }
