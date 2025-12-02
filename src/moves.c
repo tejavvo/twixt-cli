@@ -39,7 +39,8 @@ coord parse_coords(char *row, char *col) {
     p: place
     u: unplace
     l: link
-    ul: unlink
+    x: unlink
+    viewlinks: viewlinks
     h: help
 
 */
@@ -84,7 +85,7 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         if (link(pos1, pos2)) {
             return 5;
         }
-    } else if (!strcmp(move[0], "unlink") || !strcmp(move[0], "ul")) {
+    } else if (!strcmp(move[0], "unlink") || !strcmp(move[0], "x")) {
         coord pos1 = parse_coords(move[1], move[2]);
         coord pos2 = parse_coords(move[3], move[4]);
         if(outofbounds(pos1)) return 2;
@@ -112,10 +113,11 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         throw_error("    p | place <number> <number|alphabet>\n");
         throw_error("    u | unplace <number> <number|alphabet>\n");
         throw_error("    l | link <number> <number|alphabet> <number> <number|alphabet>\n");
-        throw_error("   ul | unlink <number> <number|alphabet> <number> <number|alphabet>\n");
-        throw_error("    h | help this Message :D\n");
+        throw_error("    x | unlink <number> <number|alphabet> <number> <number|alphabet>\n");
+        throw_error("    v | viewlinks -- view all links\n");
+        throw_error("    h | help -- this Message :D\n");
         return -9;
-    } else if (!strcmp(move[0], "viewlinks")) {
+    } else if (!strcmp(move[0], "viewlinks") || !strcmp(move[0], "v")) {
         viewlinks();
         return 6;
     } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {

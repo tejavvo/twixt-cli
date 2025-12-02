@@ -57,9 +57,9 @@ You can:
 - **Place a peg:** `p <number> <number|alphabet>` or `place <number> <number|alphabet>`
 - **Remove a peg:** `u <number> <number|alphabet>` or `unplace <number> <number|alphabet>`
 - **Link two pegs:** `l <number> <number|alphabet> <number> <number|alphabet>` or `link <number> <number|alphabet> <number> <number|alphabet>`
-- **Unlink two pegs:** `ul <number> <number|alphabet> <number> <number|alphabet>` or `unlink <number> <number|alphabet> <number> <number|alphabet>`
-- **Show all links:** `viewlinks`
-- **Show manual:** `help`
+- **Unlink two pegs:** `x <number> <number|alphabet> <number> <number|alphabet>` or `unlink <number> <number|alphabet> <number> <number|alphabet>`
+- **Show all links:** `v | viewlinks`
+- **Show manual:** `h | help`
 
 You cannot place at the corners or you're opponent's column.
 

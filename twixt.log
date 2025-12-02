@@ -1,0 +1,73 @@
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+Player RED, enter move: 
+p  B  2  
+Error: Cell input is out of bounds!
+Player RED, enter move: 
+p  2  B  
+Player BLUE, enter move: 
+p  2  3  
+Player RED, enter move: 
+q  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+Player RED, enter move: 
+q  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+Player RED, enter move: 
+help  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+   ul | unlink <number> <number|alphabet> <number> <number|alphabet>
+    h | help this Message :D
+Player RED, enter move: 
+h  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+   ul | unlink <number> <number|alphabet> <number> <number|alphabet>
+    h | help this Message :D
+Player RED, enter move: 
+q  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+Player RED, enter move: 
+h  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+    x | unlink <number> <number|alphabet> <number> <number|alphabet>
+    v | viewlinks -- view all links
+    h | help -- this Message :D
+Player RED, enter move: 
+v  
+Player RED, enter move: 
+v  
+Player RED, enter move: 
+h  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+    x | unlink <number> <number|alphabet> <number> <number|alphabet>
+    v | viewlinks -- view all links
+    h | help -- this Message :D
+Player RED, enter move: 
+q  
+Exiting Game
+
+
