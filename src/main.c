@@ -4,8 +4,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "macros.h"
 #include "utility.h"
 #include "moves.h"
+#include "state.h"
 #include "log.h"
 
 #define ALT_SCREEN_ENABLE 1
@@ -38,6 +40,7 @@ char **get_tokens(char *s) {
 
 int main() {
     bool GAME_ACTIVE = true;
+    int GAME_WON = 0;
 
     bool turn = true;
     int RFTM = SET_RFTM;
@@ -48,18 +51,24 @@ int main() {
     if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_ON);
 
     append_log("New game:\n");
+    throw_error("Hey! Welcome to Twist, to view commands enter `help`\n");
 
     while (GAME_ACTIVE) {
+        if (DEBUG_SHOW_ENDSCREEN) {
+            win_screen("DEBUG");
+            break;
+        }
         draw_board(board);
+
         print_error();
         reset_error();
         memset(buf, 0, sizeof(buf));
 
-        printf("Player %s, enter move: ", turn ? "RED" : "BLUE");
+        printf("Player %s, enter move: ", turn ? PLAYER1 : PLAYER2);
         if (turn) {
-            append_log("Player RED, enter move: \n");
+            append_log("Player " PLAYER1 ", enter move: \n");
         } else {
-            append_log("Player BLUE, enter move: \n");
+            append_log("Player " PLAYER2 ", enter move: \n");
         }
 
         // on ctrl+D
@@ -77,19 +86,26 @@ int main() {
         int c;
         if (!(c = parse_move(board, turn, move))) {
             if (RFTM <= 0) RFTM = SET_RFTM; 
-            turn = !turn;
+            if (!DEBUG_DIABLE_TURNS) turn = !turn;
         } else if (c == -9) {
             if (RFTM <= 0) RFTM = SET_RFTM;
         } else if (c == -10) {
             if (RFTM <= 0) RFTM = SET_RFTM;
             throw_error("Exiting Game\n");
             GAME_ACTIVE = false;
-            throw_error("You should'nt be seeing this ;)\n");
+            // throw_error("You should'nt be seeing this ;)\n");
         } else {
             RFTM--;
             if (RFTM <= 0) {
                 throw_error("Tip: Read the 'help' docs!\n");
             }
+        }
+
+        if (!GAME_WON) GAME_WON = check_win();
+        if (GAME_WON) {
+            GAME_ACTIVE = false;
+            if (GAME_WON == 1) win_screen(PLAYER2);
+            else win_screen(PLAYER1);
         }
 
         free(move);

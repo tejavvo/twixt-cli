@@ -7,11 +7,50 @@ void clear_screen() {
     fflush(stdout);
 }
 
-//  
+void win_screen(const char *winer) {
+    clear_screen();
+
+    printf("\n");
+    printf("\033[1;33m"); // bold yellow
+    printf("============================================\n");
+    printf("                 GAME  OVER\n");
+    printf("============================================\n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;32m"); // bold green
+    printf("   ██     ██ ██ ███    ██ ███████ ██████  \n");
+    printf("   ██     ██ ██ ████   ██ ██      ██   ██ \n");
+    printf("   ██  █  ██ ██ ██ ██  ██ █████   ██████  \n");
+    printf("   ██ ███ ██ ██ ██  ██ ██ ██      ██   ██ \n");
+    printf("    ███ ███  ██ ██   ████ ███████ ██   ██ \n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;36m"); // bold cyan
+    printf("        PLAYER %s IS THE WINNER !!\n", winer);
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;33m"); // bold yellow
+    printf("Press ENTER to continue...\n");
+    printf("\033[0m");
+
+    fflush(stdout);
+
+    // wait for a clean ENTER
+    getchar();
+}
+
 void draw_board(int board[SIZE][SIZE]) {
     clear_screen();
     
+    printf("\033[1;33m"); // bold yellow
     printf("    Twi-C-st (C implementation of Twixt)\n\n");
+    printf("\033[0m");
 
     // header (A B C ...)
     printf("    ");

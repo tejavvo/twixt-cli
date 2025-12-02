@@ -1,6 +1,8 @@
 #ifndef UI_H
 #define UI_H
 
+#include "macros.h"
+
 #define ALT_SCREEN_ON  "\033[?1049h"
 #define ALT_SCREEN_OFF "\033[?1049l"
 
@@ -8,10 +10,6 @@
 #define SET_CLR_RED "\033[31m"
 #define SET_CLR_BLUE "\033[34m"
 #define SET_DIM "\033[2m"
-
-#define SIZE 12
-#define SPACE 0 // make it look good doesnt work TvT
-#define MAX_ERROR_MSG 1024
 
 // third times the charm
 #define SURPRISE_COUNT 3
@@ -24,5 +22,6 @@ void reset_error();
 void print_cell(int cell);
 void print_cell(int cell);
 void draw_board(int board[SIZE][SIZE]);
+void win_screen();
 
 #endif

@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
+RENDER_FLAGS = -O1
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -8,6 +9,9 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 OUT = twixt
 
 all: $(OUT)
+
+render: CFLAGS += $(RENDER_FLAGS)
+render: clean $(OUT)
 
 $(OUT): $(OBJ)
 	$(CC) $(OBJ) -o $(OUT)

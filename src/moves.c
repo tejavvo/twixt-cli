@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "utility.h"
+#include "state.h"
 #include "moves.h"
 
 // turn ? "RED" : "BLUE"
@@ -114,6 +115,9 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         throw_error("   ul | unlink <number> <number|alphabet> <number> <number|alphabet>\n");
         throw_error("    h | help this Message :D\n");
         return -9;
+    } else if (!strcmp(move[0], "viewlinks")) {
+        viewlinks();
+        return 6;
     } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {
         return -10;
     } else {
@@ -149,60 +153,53 @@ int place(int board[SIZE][SIZE], int turn, coord pos) {
     return 0;
 }
 
-// Due: have to check for links
-int unplace(int board[SIZE][SIZE], int turn, coord pos) {
-    if (board[pos.row][pos.col] == 1 + !turn) {
-        board[pos.row][pos.col] = 0;
-    } else {
-        throw_error("Invalid Move: Not your peg to remove?\n");
-        return 3;
-    }
-    return 0;
-}
-
-
 // Make it faster and optimised
 
-int linked_tail = 0;
-conn *(linked)[MAX_LINKS] = {0};
-
-int notConnected(coord pos1, coord pos2) {
-    for (int i = 0; linked[i] != NULL; i++) {
-        if (((linked[i]->pos1.row == pos1.row) && (linked[i]->pos1.col == pos1.col) && \
-        (linked[i]->pos2.row == pos2.row) && (linked[i]->pos2.col == pos2.col)) \
-        || ((linked[i]->pos1.row == pos2.row) && (linked[i]->pos1.col == pos2.col) && \
-        (linked[i]->pos2.row == pos1.row) && (linked[i]->pos2.col == pos1.col))) {
-            return i;
-        }
-    }
-    return 0;
-}
-
 int link(coord pos1, coord pos2) {
-    conn *new = malloc(sizeof (conn));
-    if (!notConnected(pos1, pos2)) {
-        linked[linked_tail] = new;
-        linked_tail++;
-        linked[linked_tail] = NULL;
-    } else {
+    if (find_link(pos1, pos2) != -1) {
         throw_error("Error: Input positions are already linked!\n");
         return 1;
     }
+
+    conn *new = malloc(sizeof(conn));
+    new->pos1 = pos1;
+    new->pos2 = pos2;
+
+    linked[linked_tail++] = new;
     return 0;
 }
 
 int unlink(coord pos1, coord pos2) {
-    int i;
-    if ((i = notConnected(pos1, pos2))) {
-        free(linked[i]);
-        for (; linked[i] != NULL; i++) {
-            linked[i] = linked[i+1];
-        }
-        linked_tail--;
-        linked[linked_tail] = NULL;
-    } else {
+    int idx = find_link(pos1, pos2);
+    if (idx == -1) {
         throw_error("Error: Input positions are not linked anyway!\n");
         return 1;
+    }
+
+    free(linked[idx]);
+
+    for (int i = idx; i < linked_tail - 1; i++) {
+        linked[i] = linked[i + 1];
+    }
+
+    linked_tail--;
+    return 0;
+}
+
+int unplace(int board[SIZE][SIZE], int turn, coord pos) {
+    if (board[pos.row][pos.col] == 1 + !turn) {
+        board[pos.row][pos.col] = 0;
+        for (int i = 0; i < linked_tail;) {
+            if ((linked[i]->pos1.row == pos.row && linked[i]->pos1.col == pos.col) || \
+            (linked[i]->pos2.row == pos.row && linked[i]->pos2.col == pos.col)) {
+                unlink(linked[i]->pos1, linked[i]->pos2);
+            } else {
+                i++;
+            }
+        }
+    } else {
+        throw_error("Invalid Move: Not your peg to remove?\n");
+        return 3;
     }
     return 0;
 }
