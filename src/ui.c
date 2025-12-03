@@ -7,6 +7,48 @@ void clear_screen() {
     fflush(stdout);
 }
 
+void start_screen() {
+    clear_screen();
+
+    printf("\n");
+    printf("\033[1;33m"); // bold yellow
+    printf("=====================================================\n");
+    printf("                     WELCOME TO\n");
+    printf("=====================================================\n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;34m"); // bold blue
+    printf("  ██████████ ██     ██ ██████ ██    ██ ██████████ \n");
+    printf("      ██     ██     ██   ██    ██  ██      ██     \n");
+    printf("      ██     ██  █  ██   ██      ██        ██     \n");
+    printf("      ██     ██ ███ ██   ██    ██  ██      ██     \n");
+    printf("      ██      ███ ███  ██████ ██    ██     ██     \n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;36m"); // cyan
+    printf("     THE STRATEGIC PEG-AND-LINK GAME OF SKILL\n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;32m"); // green
+    printf("    Enter `help` at any time to view commands.\n");
+    printf("\033[0m");
+
+    printf("\n");
+
+    printf("\033[1;33m"); // yellow
+    printf("Press ENTER to begin...\n");
+    printf("\033[0m");
+
+    fflush(stdout);
+    getchar();
+}
+
 void win_screen(const char *winer) {
     clear_screen();
 

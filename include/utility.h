@@ -38,5 +38,6 @@ void print_cell(int cell);
 void print_cell(int cell);
 void draw_board(int board[SIZE][SIZE]);
 void win_screen();
+void start_screen();
 
 #endif

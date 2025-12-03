@@ -86,6 +86,10 @@ int main() {
     append_log("New game:\n");
     throw_error("Hey! Welcome to Twist, to view commands enter `help`\n");
 
+    if (!DEBUG_NOT_SHOW_STARTSCREEN) {
+        start_screen();
+    }
+
     while (GAME_ACTIVE) {
         if (DEBUG_SHOW_ENDSCREEN) {
             win_screen("DEBUG");
