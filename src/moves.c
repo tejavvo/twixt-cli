@@ -23,6 +23,12 @@ int outofbounds(coord pos) {
 
 // Due: Work Needed
 coord parse_coords(char *row, char *col) {
+    if (isalpha(row[0])) {
+        char *t = row;
+        row = col;
+        col = t;
+    }
+
     int r = atoi(row) - 1;
 
     int c;
@@ -130,6 +136,30 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
     return 0;
 }
 
+void link_knight_neighbors(coord pos, int board[SIZE][SIZE]) {
+    int color = board[pos.row][pos.col];
+    if (!color) return;
+
+    static const int K[8][2] = {
+        {-1,-2}, {-2,-1}, {-2, 1}, {-1, 2},
+        { 1,-2}, { 2,-1}, { 2, 1}, { 1, 2}
+    };
+
+    for (int i = 0; i < 8; i++) {
+        int rr = pos.row + K[i][0];
+        int cc = pos.col + K[i][1];
+
+        if (rr < 0 || rr >= SIZE || cc < 0 || cc >= SIZE)
+            continue;
+
+        if (board[rr][cc] == color) {
+            // append_log("Same color neighbor at (%d,%d)\n", rr, cc);
+            coord n = {rr, cc};
+            link(n, pos);
+        }
+    }
+}
+
 int place(int board[SIZE][SIZE], int turn, coord pos) {
     if (pos.row == 0) {
         if (pos.col == 0 || pos.col == SIZE - 1) {
@@ -152,6 +182,11 @@ int place(int board[SIZE][SIZE], int turn, coord pos) {
     }
 
     board[pos.row][pos.col] = 1 + !turn;
+
+    if (AUTOLINK) {
+        link_knight_neighbors(pos, board);
+    }
+
     return 0;
 }
 

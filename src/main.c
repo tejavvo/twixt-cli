@@ -13,30 +13,62 @@
 
 #define ALT_SCREEN_ENABLE 1
 
-int iswhitespace(char n) {
-    if (n == ' ' || n == '\n' || n == '\t' || n == '\v' || n == '\r' || n == '\b') return 1;
-    else return 0;
+int isws(char c) {
+    return c==' ' || c=='\n' || c=='\t' || c=='\r' || c=='\v' || c=='\f';
 }
 
-char **get_tokens(char *s) {
-    if (s == NULL) return NULL;
+int chartype(char c) {
+    if (isdigit((unsigned char)c)) return 1;
+    if (isalpha((unsigned char)c)) return 2;
+    return 0;
+}
 
-    char **tokens = malloc((strlen(s) + 1) * sizeof *tokens);
+/* returns a NULL-terminated array of heap-allocated strings.
+   Caller must free each string and the array with free_tokens(). */
+char **get_tokens(const char *s_in) {
+    if (s_in == NULL) return NULL;
+
+    int n = strlen(s_in);
+    char **tokens = malloc((n + 1) * sizeof *tokens);
+    if (!tokens) return NULL;
+
     int k = 0;
+    int i = 0;
+    while (i < n) {
+        while (i < n && isws(s_in[i])) i++;
+        if (i >= n) break;
 
-    for (int i = 0; s[i] != '\0'; i++) {
-        if (iswhitespace(s[i])) continue;
+        int start = i;
+        int t0 = chartype(s_in[i]);
+        i++;
 
-        tokens[k++] = &s[i];
-        while (s[i] != '\0' && !iswhitespace(s[i])) {
+        while (i < n && !isws(s_in[i])) {
+            int t1 = chartype(s_in[i]);
+            if (t1 != t0) break;
             i++;
         }
 
-        s[i] = '\0';
+        int end = i;
+        int len = end - start;
+        char *tok = malloc(len + 1);
+        if (!tok) {
+            for (int z = 0; z < k; z++) free(tokens[z]);
+            free(tokens);
+            return NULL;
+        }
+        memcpy(tok, s_in + start, len);
+        tok[len] = '\0';
+        tokens[k++] = tok;
     }
 
     tokens[k] = NULL;
     return tokens;
+}
+
+void free_tokens(char **toks) {
+    if (!toks) return;
+    for (int i = 0; toks[i] != NULL; i++) free(toks[i]);
+    free(toks);
 }
 
 int main() {
@@ -109,7 +141,7 @@ int main() {
             else win_screen(PLAYER1);
         }
 
-        free(move);
+        free_tokens(move);
     }
 
     if (ALT_SCREEN_ENABLE) printf(ALT_SCREEN_OFF);

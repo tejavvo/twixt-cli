@@ -8,6 +8,8 @@
 #define PLAYER1 "RED"
 #define PLAYER2 "BLUE"
 
+#define AUTOLINK 1
+
 #define DEBUG_DIABLE_TURNS 0
 #define DEBUG_SHOW_ENDSCREEN 0
 
