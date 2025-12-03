@@ -120,7 +120,7 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
     } else if (!strcmp(move[0], "viewlinks") || !strcmp(move[0], "v")) {
         viewlinks();
         return 6;
-    } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q")) {
+    } else if (!strcmp(move[0], "exit") || !strcmp(move[0], "quit") || !strcmp(move[0], "q") || !strcmp(move[0], "Q")) {
         return -10;
     } else {
         throw_error("Invalid move: type 'help' to view all possible commands\n");
@@ -156,18 +156,43 @@ int place(int board[SIZE][SIZE], int turn, coord pos) {
 }
 
 // Make it faster and optimised
+static int orient(coord a, coord b, coord c) {
+    int v = (b.row - a.row)*(c.col - a.col) - (b.col - a.col)*(c.row - a.row);
+    if (v > 0) return 1;      // counterclockwise
+    if (v < 0) return -1;     // clockwise
+    return 0;                 // collinear
+}
+
+static int segments_intersect(coord a, coord b, coord c, coord d) {
+    int o1 = orient(a, b, c);
+    int o2 = orient(a, b, d);
+    int o3 = orient(c, d, a);
+    int o4 = orient(c, d, b);
+
+    return (o1 * o2 < 0) && (o3 * o4 < 0);
+}
 
 int link(coord pos1, coord pos2) {
+    // check for duplicate link
     if (find_link(pos1, pos2) != -1) {
         throw_error("Error: Input positions are already linked!\n");
         return 1;
     }
 
+    // check for crossing
+    for (int i = 0; i < linked_tail; i++) {
+        conn *c = linked[i];
+        if (segments_intersect(pos1, pos2, c->pos1, c->pos2)) {
+            throw_error("Error: Link crosses an existing link!\n");
+            return 1;
+        }
+    }
+
     conn *new = malloc(sizeof(conn));
     new->pos1 = pos1;
     new->pos2 = pos2;
-
     linked[linked_tail++] = new;
+
     return 0;
 }
 

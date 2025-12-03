@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #include "macros.h"
 #include "utility.h"
@@ -43,7 +44,7 @@ int main() {
     int GAME_WON = 0;
 
     bool turn = true;
-    int RFTM = SET_RFTM;
+    int RTFM = SET_RTFM; iC(EF);
     int board[SIZE][SIZE] = {0};
 
     char buf[BUFFER_SIZE];
@@ -85,18 +86,18 @@ int main() {
 
         int c;
         if (!(c = parse_move(board, turn, move))) {
-            if (RFTM <= 0) RFTM = SET_RFTM; 
+            if (RTFM <= 0) RTFM = SET_RTFM; 
             if (!DEBUG_DIABLE_TURNS) turn = !turn;
         } else if (c == -9) {
-            if (RFTM <= 0) RFTM = SET_RFTM;
+            if (RTFM <= 0) RTFM = SET_RTFM;
         } else if (c == -10) {
-            if (RFTM <= 0) RFTM = SET_RFTM;
+            if (RTFM <= 0) RTFM = SET_RTFM;
             throw_error("Exiting Game\n");
             GAME_ACTIVE = false;
             // throw_error("You should'nt be seeing this ;)\n");
         } else {
-            RFTM--;
-            if (RFTM <= 0) {
+            RTFM--;
+            if (RTFM <= 0) {
                 throw_error("Tip: Read the 'help' docs!\n");
             }
         }

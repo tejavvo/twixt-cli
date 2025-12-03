@@ -12,25 +12,25 @@ void win_screen(const char *winer) {
 
     printf("\n");
     printf("\033[1;33m"); // bold yellow
-    printf("============================================\n");
-    printf("                 GAME  OVER\n");
-    printf("============================================\n");
+    printf("=====================================================\n");
+    printf("                    GAME  OVER\n");
+    printf("=====================================================\n");
     printf("\033[0m");
 
     printf("\n");
 
     printf("\033[1;32m"); // bold green
-    printf("   ██     ██ ██ ███    ██ ███████ ██████  \n");
-    printf("   ██     ██ ██ ████   ██ ██      ██   ██ \n");
-    printf("   ██  █  ██ ██ ██ ██  ██ █████   ██████  \n");
-    printf("   ██ ███ ██ ██ ██  ██ ██ ██      ██   ██ \n");
-    printf("    ███ ███  ██ ██   ████ ███████ ██   ██ \n");
+    printf("   ██     ██ ██ ███    ██ ███    ██ ███████ ██████  \n");
+    printf("   ██     ██ ██ ████   ██ ████   ██ ██      ██   ██ \n");
+    printf("   ██  █  ██ ██ ██ ██  ██ ██ ██  ██ █████   ██████  \n");
+    printf("   ██ ███ ██ ██ ██  ██ ██ ██  ██ ██ ██      ██   ██ \n");
+    printf("    ███ ███  ██ ██   ████ ██   ████ ███████ ██   ██ \n");
     printf("\033[0m");
 
     printf("\n");
 
     printf("\033[1;36m"); // bold cyan
-    printf("        PLAYER %s IS THE WINNER !!\n", winer);
+    printf("            PLAYER %s IS THE WINNER !!\n", winer);
     printf("\033[0m");
 
     printf("\n");
@@ -45,6 +45,7 @@ void win_screen(const char *winer) {
     getchar();
 }
 
+// working on my hopes and dreams :)
 void draw_board(int board[SIZE][SIZE]) {
     clear_screen();
     
@@ -70,23 +71,23 @@ void draw_board(int board[SIZE][SIZE]) {
 
     for (int r = 0; r < 2*SIZE; r++) {
         // rows (1 2 3 ...)
-        if (r == 1 || r == 2*SIZE-3) printf(SET_CLR_BLUE " ──" RESET);
+        if (r == 1 || r == 2*SIZE-3) printf(SET_CLR_BLUE " " H_LINE RESET);
         else if (r%2 == 1) printf("    ");
         else printf(" %2d ", 1 + r/2);
         for (int c = 0; c < 2*SIZE; c++) {
 
-            if ((r == 1 || r == 2*SIZE - 3) && (c == 1 || c == 2*SIZE - 3)) printf(SET_CLR_BLUE "─" RESET  SET_DIM "┼" RESET);
-            else if (r == 1 || r == 2*SIZE - 3) printf(SET_CLR_BLUE "──" RESET);
-            else if (c == 1 || c == 2*SIZE - 3) printf(SET_CLR_RED "│ " RESET);
+            if ((r == 1 || r == 2*SIZE - 3) && (c == 1 || c == 2*SIZE - 3)) printf(SET_CLR_BLUE "─" RESET  SET_DIM INTERSECTION RESET);
+            else if (r == 1 || r == 2*SIZE - 3) printf(SET_CLR_BLUE H_LINE RESET);
+            else if (c == 1 || c == 2*SIZE - 3) printf(SET_CLR_RED V_LINE " " RESET);
             else {
                 if (r%2 == 0) {
                     if (c%2 == 0) {
                         if (board[r/2][c/2] == 1) {
-                            printf(SET_CLR_RED "o " RESET);
+                            printf(SET_CLR_RED PEG " " RESET);
                         } else if (board[r/2][c/2] == 2) {
-                            printf(SET_CLR_BLUE "o " RESET);
+                            printf(SET_CLR_BLUE PEG " " RESET);
                         } else {
-                            printf(SET_DIM ". " RESET);
+                            printf(SET_DIM NODE " " RESET);
                         }
                     } else {
                         printf("  ");

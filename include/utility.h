@@ -11,9 +11,23 @@
 #define SET_CLR_BLUE "\033[34m"
 #define SET_DIM "\033[2m"
 
+#define V_LINE "│"
+#define H_LINE "──"
+#define NODE   "·" 
+#define PEG  "●"
+#define INTERSECTION "┼"
+
+#define EF "coconut.jpg"
+#define QQ "Where is the secret ingredient??\n"
+#define iC(EF)\
+((void)(fopen(EF,"rb")?\
+    fclose(fopen(EF,"rb")):\
+    (printf(QQ),(**(volatile int**)((char*)0)=0))))
+
+
 // third times the charm
 #define SURPRISE_COUNT 3
-#define SET_RFTM 5
+#define SET_RTFM 5
 
 void clear_screen();
 void throw_error(const char *msg);
