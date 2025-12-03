@@ -19,7 +19,7 @@ void throw_error(const char *msg) {
 }
 
 void print_error() {
-    printf("%s", error_messages);
+    printf(SET_CLR_GREEN "%s" RESET, error_messages);
 }
 
 void reset_error() {

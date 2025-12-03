@@ -97,9 +97,9 @@ int main() {
         reset_error();
         memset(buf, 0, sizeof(buf));
 
-        printf("Player %s, enter move: ", turn ? PLAYER1 : PLAYER2);
+        printf("Player %s, enter move: ", turn ? SET_CLR_RED PLAYER1 RESET : SET_CLR_BLUE PLAYER2 RESET);
         if (turn) {
-            append_log("Player " PLAYER1 ", enter move: \n");
+            append_log(SET_CLR_RED "Player " PLAYER1 ", enter move: \n" RESET);
         } else {
             append_log("Player " PLAYER2 ", enter move: \n");
         }

@@ -9,6 +9,7 @@
 #define RESET "\033[0m"
 #define SET_CLR_RED "\033[31m"
 #define SET_CLR_BLUE "\033[34m"
+#define SET_CLR_GREEN "\033[32m"
 #define SET_DIM "\033[2m"
 
 #define V_LINE "│"

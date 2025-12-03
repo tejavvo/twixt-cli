@@ -90,6 +90,8 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         }
         if (link(pos1, pos2)) {
             return 5;
+        } else {
+            return 1;
         }
     } else if (!strcmp(move[0], "unlink") || !strcmp(move[0], "x")) {
         coord pos1 = parse_coords(move[1], move[2]);
@@ -108,6 +110,8 @@ int parse_move(int board[SIZE][SIZE], int turn, char **move) {
         }
         if (unlink(pos1, pos2)) {
             return 5;
+        } else {
+            return 1;
         }
     } else if (!strcmp(move[0], "help") || !strcmp(move[0], "h")) {
         SURPRISE--;
