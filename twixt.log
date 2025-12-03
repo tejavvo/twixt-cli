@@ -26,3 +26,101 @@ Hey! Welcome to Twist, to view commands enter `help`
 Exiting Game
 
 
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+[31mPlayer RED, enter move: 
+[0mq  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+[31mPlayer RED, enter move: 
+[0mhelp  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+    x | unlink <number> <number|alphabet> <number> <number|alphabet>
+    v | viewlinks -- view all links
+    h | help -- this Message :D
+[31mPlayer RED, enter move: 
+[0mq  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+[31mPlayer RED, enter move: 
+[0mq  
+Exiting Game
+
+
+New game:
+Hey! Welcome to Twist, to view commands enter `help`
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0m
+Error: please input something!!
+Tip: Read the 'help' docs!
+[31mPlayer RED, enter move: 
+[0mhelp  
+Hey! Here is all possible moves
+    p | place <number> <number|alphabet>
+    u | unplace <number> <number|alphabet>
+    l | link <number> <number|alphabet> <number> <number|alphabet>
+    x | unlink <number> <number|alphabet> <number> <number|alphabet>
+    v | viewlinks -- view all links
+    h | help -- this Message :D
+[31mPlayer RED, enter move: 
+[0mv  
+[31mPlayer RED, enter move: 
+[0mv  
+[31mPlayer RED, enter move: 
+[0mq  
+Exiting Game
+
+

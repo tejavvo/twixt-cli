@@ -37,6 +37,7 @@ void start_screen() {
 
     printf("\033[1;32m"); // green
     printf("    Enter `help` at any time to view commands.\n");
+    printf(" To change parameters, edit include/macros.h and recompile\n");
     printf("\033[0m");
 
     printf("\n");
